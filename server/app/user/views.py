@@ -3,6 +3,8 @@ from django.http import JsonResponse
 
 #models imports
 from django.contrib.auth.models import User
+from .models import user, order
+
 
 
 # Create your views here.
@@ -33,3 +35,12 @@ def show_user(req):
     Users = list(User.objects.all().values())
 
     return JsonResponse(Users, safe=False)
+
+def show_user_order_inner(req):
+
+    orders = list(order.objects.select_related('user').all())
+
+
+    return JsonResponse(orders, safe=False)
+
+
